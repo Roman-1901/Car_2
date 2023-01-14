@@ -1,10 +1,7 @@
 package transport;
 
-import Exceptions.NotDriveLicense;
 import drivers.Driver;
-
-import java.util.ArrayList;
-import java.util.List;
+import drivers.DriverB;
 
 public abstract class Transport implements  Competing{
     private final String brand;
@@ -12,10 +9,12 @@ public abstract class Transport implements  Competing{
 
     private double engineVolume;
 
+    private boolean service;
 
     private Driver driver;
 
-    protected List <Mechanic> mechanics = new ArrayList<>();
+    private Mechanic mechanic1;
+    private Mechanic mechanic2;
 
     public Transport(String brand, String model, double engineVolume, Driver driver) {
         String def = "default";
@@ -31,6 +30,7 @@ public abstract class Transport implements  Competing{
         this.brand = brand;
         this.model = model;
         this.engineVolume = engineVolume;
+        this.service = false;
         this.driver = driver;
 
         }
@@ -49,54 +49,13 @@ public abstract class Transport implements  Competing{
         return engineVolume;
     }
 
-
-    public String getDriver() {
-        return "Водитель " + driver;
+    public boolean getService() {
+        return service;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setService(boolean service) {
+        this.service = service;
     }
-
-
-    public void getMechanics() {
-        System.out.println("Механики:");
-        for (int i = 0; i < mechanics.size(); i++) {
-            System.out.println(mechanics.get(i));
-        }
-    }
-
-
-
-    public abstract void addMechanics(Mechanic ... mechanic);
-
-    public void addMechanicsTransport(int num1, int num2, Mechanic ... mech) {
-        for (Mechanic mechanic : mech) {
-            if (mechanic.getAccessCar().getNum() == num1 || mechanic.getAccessCar().getNum() == num2) {
-                mechanics.add(mechanic);
-            } else {
-                System.out.println("Нельзя добавить механика " + mechanic.getName() + " "+ mechanic.getSurname() + " к транспорту "+ getBrand() + " "+ getModel());
-                }
-        }
-    }
-
-    public static void showInfoTransport(List<Transport> transports, int index) {
-        System.out.println(transports.get(index));
-        System.out.println(transports.get(index).getDriver());
-        transports.get(index).getMechanics();
-    }
-
-    public static void showInfoTransports(List<Transport> transports) {
-        for (int i = 0; i < transports.size(); i++) {
-            System.out.println(transports.get(i));
-            System.out.println(transports.get(i).getDriver());
-            transports.get(i).getMechanics();
-        }
-    }
-
-
-
-    //------------------------------------------------------------------------------------------------------
 
     public void startMoving() {
         System.out.println(getBrand() +" " + getModel() + " начинает движение");
@@ -105,6 +64,35 @@ public abstract class Transport implements  Competing{
     public void endMoving() {
         System.out.println(getBrand() +" " + getModel() + " заканчивает движение");
     }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+
+    public void setMechanic(Mechanic mechanic1) {
+        this.mechanic1 = mechanic1;
+    }
+
+    public void setMechanic(Mechanic mechanic1, Mechanic mechanic2) {
+        this.mechanic1 = mechanic1;
+        this.mechanic2 = mechanic2;
+    }
+
+    public Mechanic getMechanic1() {
+        return mechanic1;
+    }
+
+    public Mechanic getMechanic2() {
+        return mechanic2;
+    }
+
+    public abstract void addMechanics(Mechanic mechanic1);
+    public abstract void addMechanics(Mechanic mechanic1, Mechanic mechanic2);
 
     @Override
     public void pitStop(boolean pitStop) {
@@ -139,23 +127,42 @@ public abstract class Transport implements  Competing{
 
 
 
-   public abstract void Diagnostic() throws NotDriveLicense;
+    public void Diagnostic() {
+        setService(true);
+        throw new UnsupportedOperationException(getBrand() + " " + getModel() + " - данный вид транспорта в диагностике не требуется");
+    }
 
-
-    public void doDiagnostic() {
+    public static void doDiagnostic(Transport... transports) {
+        for (Transport transport : transports) {
             try {
-                Diagnostic();
-            } catch (NotDriveLicense e) {
+                transport.Diagnostic();
+            } catch (UnsupportedOperationException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public static void checkDiagnostic (Transport... transports) {
+        for (Transport transport : transports) {
+            if (!transport.getService()) {
+                throw new RuntimeException("Транспортное средство " + transport.getBrand() + " " + transport.getModel() + " не прошло диагностику");
+            } else {
+                System.out.println(transport.getBrand() + " " + transport.getModel() + " - ОК");
+            }
+        }
     }
 
 
+
+
+    @Override
     public String toString() {
         if (getDriver() != null) {
-            return "Данные транспортного средства: бренд: " + getBrand() + ", модель: " + getModel() + ", объем двигателя: " + getEngineVolume() + "\n";
+            return "Данные транспортного средства: бренд: " + getBrand() + ", модель: " + getModel() + ", объем двигателя: " + getEngineVolume() + "\n"
+                    + getDriver() + "\n" + "Механик 1: "+ getMechanic1() + "\n"+ "Механик 2: " + getMechanic2() + "\n";
         } else {
-            return "Данные транспортного средства: бренд: " + getBrand() + ", модель: " + getModel() + ", объем двигателя: " + getEngineVolume() + "\n";
+            return "Данные транспортного средства: бренд: " + getBrand() + ", модель: " + getModel() + ", объем двигателя: " + getEngineVolume() + "\n"
+                    + "Водитель отсутствует" + "\n" + "Механик 1: "+ getMechanic1() + "\n"+ "Механик 2: " + getMechanic2() + "\n";
         }
     }
 }
