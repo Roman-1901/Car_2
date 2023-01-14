@@ -10,7 +10,6 @@ import javax.tools.Diagnostic;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.Map;
 
 import static transport.Transport.*;
 
@@ -81,8 +80,7 @@ public class MainCars {
         mechanics.add(mechanicAll4);
 
 
-
-                      // Добавлены автомобили и закреплены водители. Также сделано ограничение, например, нельзя добавить водителя категории С к автомобилю категории B т т.д.
+        // Добавлены автомобили и закреплены водители. Также сделано ограничение, например, нельзя добавить водителя категории С к автомобилю категории B т т.д.
 
         Car car1 = new Car("BMW", "Z8", 3.0, Car.CarType.HATCHBACK, null);
         Car car2 = new Car("Kia", "Sportage 4", 2.4, Car.CarType.SEDAN, (DriverB) drivers.get(1));
@@ -169,13 +167,13 @@ public class MainCars {
 
         // Выводится информация по любому транспорту по индексу. Также указаны водители и механики, закрепленные за авто.
         // Там, где водители или механики не добавились, высвечивается null.
-       showInfoTransport(transports, 5);
-       showInfoTransport(transports, 8);
-       showInfoTransport(transports, 0);
-       showInfoTransport(transports, 2);
+        showInfoTransport(transports, 5);
+        showInfoTransport(transports, 8);
+        showInfoTransport(transports, 0);
+        showInfoTransport(transports, 2);
 
-       // Выводится полный список всех машин с водителями и механиками
- //    showInfoTransports(transports);
+        // Выводится полный список всех машин с водителями и механиками
+        //    showInfoTransports(transports);
 
 
         //Проверка диагностики. У первой машины отсутсвует водитель, выдаст исключение, у второй проверит, третий - автобус, в проверке не нуждается
@@ -199,8 +197,5 @@ public class MainCars {
         }
 
     }
-
-
-
 
 }

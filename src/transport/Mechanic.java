@@ -75,15 +75,14 @@ public class Mechanic {
             }
         }
         if (!check) {
-                System.out.println("Механик "+ name + " " + surname + notFixCheck + transport.getBrand() + " " + transport.getModel());
-            }
-    }
-
-
-
-        @Override
-        public String toString () {
-            return name + " " + surname + ", компания: " + nameCompany;
+            System.out.println("Механик "+ name + " " + surname + notFixCheck + transport.getBrand() + " " + transport.getModel());
         }
     }
 
+
+
+    @Override
+    public String toString () {
+        return name + " " + surname + ", компания: " + nameCompany;
+    }
+}

@@ -6,7 +6,7 @@ import transport.Truck;
 
 public class DriverC extends Driver<Truck> {
 
-private Truck transport;
+    private Truck transport;
 
     public DriverC(String name, String driveLicense, int experience) throws NotDriveLicense {
         super(name, driveLicense, experience);
