@@ -12,7 +12,7 @@ import java.util.List;
 public class Set {
     public static void main(String[] args) throws NotDriveLicense {
         // - добавил в ArrayList водителей из старого спика
-        List<Driver> drivers = new ArrayList<>();
+        List<Driver<?>> drivers = new ArrayList<>();
         drivers.add(new DriverB("Самохин Иван Петрович", "B", 10));
         drivers.add(new DriverB("Гвоздикин Петр Сергеевич", "B", 8));
         drivers.add(new DriverB("Лановой Сергей Николаевич", "B", 5));
@@ -29,7 +29,7 @@ public class Set {
         drivers.add(new DriverD("Зарипов Ренат Ильгизович", "D", 9));
 
         // - Создал HashSet и добавил ArrayList весь список водителей туда
-        HashSet<Driver> driversSet = new HashSet<>(drivers);
+        HashSet<Driver<?>> driversSet = new HashSet<>(drivers);
 
         //копируем еще трех водителей, чтобы появились дубли, данные водители также имеются в списке ArrayList
         driversSet.add(new DriverB("Гвоздикин Петр Сергеевич", "B", 8));
@@ -37,13 +37,13 @@ public class Set {
         driversSet.add(new DriverD("Шляппо Василий Ираклиевич", "D", 11));
 
         //выводим список водителей и видим, что дубли отсутсвуют. В данном случае еще понадобилось создать equals() и hashcode() в классе Drivers
-        for (Driver driver : driversSet) {
+        for (Driver<?> driver : driversSet) {
             System.out.println(driver);
         }
 
         //выводим снова список, но с помощью итератора
         System.out.println();
-        Iterator<Driver> driverIterator = drivers.iterator();
+        Iterator<Driver<?>> driverIterator = drivers.iterator();
         while (driverIterator.hasNext()) {
             System.out.println(driverIterator.next());
         }
