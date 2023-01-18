@@ -2,7 +2,7 @@ package drivers;
 
 import Exceptions.NotDriveLicense;
 import transport.Car;
-
+import transport.Transport;
 
 
 public class DriverB extends Driver<Car> {

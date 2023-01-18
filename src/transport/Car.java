@@ -1,7 +1,11 @@
 package transport;
 
 import Exceptions.NotDriveLicense;
+import drivers.Driver;
 import drivers.DriverB;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Car extends Transport implements Competing {
 
@@ -26,9 +30,11 @@ public class Car extends Transport implements Competing {
 
     private CarType type;
 
+    private Map<Car, Mechanic> hashCar = new HashMap<>();
 
 
-    public Car(String brand, String model, double engineVolume, CarType type, DriverB driver) {
+
+    public Car(String brand, String model, double engineVolume, CarType type, Driver<Car> driver) {
         super(brand, model, engineVolume, driver);
         this.type = type;
     }
@@ -41,6 +47,8 @@ public class Car extends Transport implements Competing {
     public void addMechanics(Mechanic... mechanics) {
         addMechanicsTransport(1, 4, mechanics);
     }
+
+
 
 
 
@@ -62,6 +70,7 @@ public class Car extends Transport implements Competing {
             System.out.println("Транспортное средство " + getBrand() + " " + getModel() + " прошло диагностику");
         }
     }
+
 
 
     @Override

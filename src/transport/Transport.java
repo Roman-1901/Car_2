@@ -6,7 +6,7 @@ import drivers.Driver;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Transport implements  Competing{
+public abstract class Transport implements Competing{
     private final String brand;
     private final String model;
 
@@ -72,7 +72,7 @@ public abstract class Transport implements  Competing{
 
     public void addMechanicsTransport(int num1, int num2, Mechanic ... mech) {
         for (Mechanic mechanic : mech) {
-            if (mechanic.getAccessCar().getNum() == num1 || mechanic.getAccessCar().getNum() == num2) {
+            if ((mechanic.getAccessCar().getNum() == num1 || mechanic.getAccessCar().getNum() == num2) && !mechanics.contains(mechanic)) {
                 mechanics.add(mechanic);
             } else {
                 System.out.println("Нельзя добавить механика " + mechanic.getName() + " "+ mechanic.getSurname() + " к транспорту "+ getBrand() + " "+ getModel());
@@ -93,7 +93,6 @@ public abstract class Transport implements  Competing{
             transports.get(i).getMechanics();
         }
     }
-
 
 
     //------------------------------------------------------------------------------------------------------

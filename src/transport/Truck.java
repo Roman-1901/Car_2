@@ -1,6 +1,8 @@
 package transport;
 
 import Exceptions.NotDriveLicense;
+import drivers.Driver;
+import drivers.DriverB;
 import drivers.DriverC;
 
 public class Truck extends Transport implements Competing {
@@ -30,7 +32,7 @@ public class Truck extends Transport implements Competing {
 
     private TruckType type;
 
-    public Truck(String brand, String model, double engineVolume, TruckType type, DriverC driver) {
+    public Truck(String brand, String model, double engineVolume, TruckType type, Driver<Truck> driver) {
         super(brand, model, engineVolume, driver);
         this.type = type;
     }

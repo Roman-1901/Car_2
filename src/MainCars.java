@@ -6,7 +6,7 @@ import drivers.DriverC;
 import drivers.DriverD;
 import transport.*;
 
-import javax.tools.Diagnostic;
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -34,6 +34,7 @@ public class MainCars {
         drivers.add(new DriverD("Куценко Андрей Романович", "D", 17));
         drivers.add(new DriverD("Жулебин Игорь Дмитриевич", "D", 15));
         drivers.add(new DriverD("Зарипов Ренат Ильгизович", "D", 9));
+
 
 // - Добавлены механики. Для каждого механика добавлен Enum, может ли он обслуживать только определенный тип авто, либо все авто.
 //   При добавлении механиков к автомобилям будет учитываться навык механика. То есть, если к автомобилю из класса Car добавить механика, который обслуживает только грузовики ONLY_TRUCK,
@@ -82,20 +83,20 @@ public class MainCars {
 
         // Добавлены автомобили и закреплены водители. Также сделано ограничение, например, нельзя добавить водителя категории С к автомобилю категории B т т.д.
 
-        Car car1 = new Car("BMW", "Z8", 3.0, Car.CarType.HATCHBACK, null);
-        Car car2 = new Car("Kia", "Sportage 4", 2.4, Car.CarType.SEDAN, (DriverB) drivers.get(1));
-        Car car3 = new Car("Audi", "A8", 3.0, Car.CarType.MINIVAN, null);
-        Car car4 = new Car("Hyundai", "Avante", 1.6, Car.CarType.VAN, (DriverB) drivers.get(3));
+        Car car1 = new Car("BMW", "Z8", 3.0, Car.CarType.HATCHBACK, drivers.get(0));
+        Car car2 = new Car("Kia", "Sportage 4", 2.4, Car.CarType.SEDAN, drivers.get(1));
+        Car car3 = new Car("Audi", "A8", 3.0, Car.CarType.MINIVAN, drivers.get(2));
+        Car car4 = new Car("Hyundai", "Avante", 1.6, Car.CarType.VAN, drivers.get(3));
 
-        Truck truck1 = new Truck("Sollers", "Apro", 2.0, Truck.TruckType.N1, (DriverC) drivers.get(4));
-        Truck truck2 = new Truck("Jac", "Sunray", 2.5, Truck.TruckType.N2, (DriverC) drivers.get(5));
-        Truck truck3 = new Truck("Man", "TGS", 2.2, Truck.TruckType.N3, (DriverC) drivers.get(6));
+        Truck truck1 = new Truck("Sollers", "Apro", 2.0, Truck.TruckType.N1, drivers.get(4));
+        Truck truck2 = new Truck("Jac", "Sunray", 2.5, Truck.TruckType.N2, drivers.get(5));
+        Truck truck3 = new Truck("Man", "TGS", 2.2, Truck.TruckType.N3, drivers.get(6));
         Truck truck4 = new Truck("Foton", "Auman", 2.3, Truck.TruckType.N2, null);
 
-        Bus bus1 = new Bus("Citroen", "Jumper", 2.5, Bus.BusType.SMALL, (DriverD) drivers.get(8));
-        Bus bus2 = new Bus("Mercedes-Benz", "Sprinter", 2.8, Bus.BusType.BIG, (DriverD) drivers.get(9));
-        Bus bus3 = new Bus("Лиаз", "4292", 2.6, Bus.BusType.BIGGEST, (DriverD) drivers.get(10));
-        Bus bus4 = new Bus("Volvo", "7900", 2.2, Bus.BusType.MEDIUM, (DriverD) drivers.get(11));
+        Bus bus1 = new Bus("Citroen", "Jumper", 2.5, Bus.BusType.SMALL, drivers.get(8));
+        Bus bus2 = new Bus("Mercedes-Benz", "Sprinter", 2.8, Bus.BusType.BIG, drivers.get(9));
+        Bus bus3 = new Bus("Лиаз", "4292", 2.6, Bus.BusType.BIGGEST, drivers.get(10));
+        Bus bus4 = new Bus("Volvo", "7900", 2.2, Bus.BusType.MEDIUM, drivers.get(11));
 
         List<Transport> transports = new ArrayList<>();
         transports.add(car1);
@@ -132,11 +133,12 @@ public class MainCars {
         transports.get(8).addMechanics(mechanics.get(8), mechanics.get(9), mechanics.get(10)); // Успешно добавятся трое
         transports.get(9).addMechanics(mechanics.get(1), mechanics.get(14)); //Первый не добавится(имеет доступ к Car), второй добавится
         transports.get(10).addMechanics(mechanics.get(8)); // Добавится
+        transports.get(10).addMechanics(mechanics.get(8)); // Не добавится, т.к. уже был добавлен ранее
         transports.get(11).addMechanics(mechanics.get(10), mechanics.get(12)); // Успешно добавятся оба
 
 
 
-        //и того, пять механиков не добавилось, по ним выдаст соответствующий эксепшн
+        //и того, шесть механиков не добавилось, по ним выдаст соответствующий эксепшн
 
 
 
